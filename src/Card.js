@@ -15,11 +15,12 @@ const Card = ({ card, feedback, onClick }) => (
 Card.propTypes = {
   card: PropTypes.string.isRequired,
   feedback: PropTypes.oneOf([
-    "visible",
     "hidden",
     "justMatched",
     "justMistmatched",
-  ]),
+    "visible",
+  ]).isRequired,
+  index: PropTypes.number.isRequired,
   onClick: PropTypes.func.isRequired,
 };
 export default Card;
