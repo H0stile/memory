@@ -30,20 +30,6 @@ class App extends Component {
     return shuffle(result);
   }
 
-  handleNewPairClosedBy(index) {
-    const { cards, currentPair, guesses, matchedCardIndices } = this.state;
-    const newPair = [currentPair[0], index];
-    const newGuesses = guesses + 1;
-    const matched = cards[newPair[0]] === cards[newPair[1]];
-    this.setState({ currentPair: newPair, guesses: newGuesses });
-    if (matched) {
-      this.setState({
-        matchedCardIndices: [...matchedCardIndices, ...newPair],
-      });
-      setTimeout(() => this.setState({ currentPair: [] }), VISUAL_PAUSE_MSECS);
-    }
-  }
-
   getFeedbackForCard(index) {
     const { currentPair, matchedCardIndices } = this.state;
     const indexMatched = matchedCardIndices.includes(index);
@@ -89,6 +75,19 @@ class App extends Component {
         {won && <HallOfFame entries={FAKE_HOF} />}
       </div>
     );
+  }
+  handleNewPairClosedBy(index) {
+    const { cards, currentPair, guesses, matchedCardIndices } = this.state;
+    const newPair = [currentPair[0], index];
+    const newGuesses = guesses + 1;
+    const matched = cards[newPair[0]] === cards[newPair[1]];
+    this.setState({ currentPair: newPair, guesses: newGuesses });
+    if (matched) {
+      this.setState({
+        matchedCardIndices: [...matchedCardIndices, ...newPair],
+      });
+    }
+    setTimeout(() => this.setState({ currentPair: [] }), VISUAL_PAUSE_MSECS);
   }
 }
 
